@@ -1,0 +1,209 @@
+﻿<Window x:Class="StructuresEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StructuresEditor"
+        mc:Ignorable="d"
+        Title="Structures Editor" Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        FontFamily="Roboto Medium" FontSize="14" MinWidth="800" MinHeight="450" Loaded="Window_Loaded" Closing="MainWindow_OnClosing">
+    <Window.Resources>
+        <RoutedUICommand x:Key="AddNamespace" Text="Add Namespace" />
+        <RoutedUICommand x:Key="AddStruct" Text="Add Struct" />
+        <RoutedUICommand x:Key="AddEnum" Text="Add Enum" />
+        <RoutedUICommand x:Key="FocusPath" Text="Focus Path" />
+        <RoutedUICommand x:Key="GoToPath" Text="Go To Path" />
+        <RoutedUICommand x:Key="Save" Text="Save" />
+        <RoutedUICommand x:Key="Load" Text="Load" />
+        <RoutedUICommand x:Key="Compile" Text="Compile" />
+        <RoutedUICommand x:Key="CloseProject" Text="Close Project" />
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource AddNamespace}" Executed="NamespaceAdder" />
+        <CommandBinding Command="{StaticResource AddStruct}" Executed="StructAdder" />
+        <CommandBinding Command="{StaticResource AddEnum}" Executed="EnumAdder" />
+        <CommandBinding Command="{StaticResource FocusPath}" Executed="FocusPath" />
+        <CommandBinding Command="{StaticResource GoToPath}" Executed="GoToPath" />
+        <CommandBinding Command="{StaticResource Save}" Executed="Save" />
+        <CommandBinding Command="{StaticResource Load}" Executed="Load" />
+        <CommandBinding Command="{StaticResource Compile}" Executed="Compile" />
+        <CommandBinding Command="{StaticResource CloseProject}" Executed="CloseProject" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{StaticResource Save}" />
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{StaticResource Load}" />
+        <KeyBinding Key="F5" Command="{StaticResource Compile}" />
+    </Window.InputBindings>
+    <Grid Background="#FF1A1A1D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel VerticalAlignment="Top">
+            <Menu DockPanel.Dock="Top" Background="#FF1A1A1D">
+                <MenuItem Header="_Project" Foreground="White">
+                    <MenuItem Command="{StaticResource CloseProject}" Foreground="Black"/>
+                    <MenuItem Command="{StaticResource Save}" InputGestureText="Ctrl+S" Foreground="Black"/>
+                    <MenuItem Command="{StaticResource Load}" InputGestureText="Ctrl+L" Foreground="Black"/>
+                    <MenuItem Command="{StaticResource Compile}" InputGestureText="F5" Foreground="Black"/>
+                    <Separator />
+                    <MenuItem Header="_Properties" Click="Properties_OnClick" Foreground="Black"/>
+                    <MenuItem Header="_Exit" x:Name="exitBtn" Click="ExitBtn_OnClick" Foreground="Black"/>
+                </MenuItem>
+                <MenuItem Header="_Help" Foreground="White">
+                    <MenuItem Header="_About" Click="About_OnClick" Foreground="Black"/>
+                </MenuItem>
+                <CheckBox Foreground="White" Name="shiftOffsets">Shift All Down Offsets</CheckBox>
+                <CheckBox Foreground="#FF008BBF" Name="is64bit" 
+                          IsChecked="{Binding Path=Is64Bit}">64 Bit Mode</CheckBox>
+            </Menu>
+            <Separator Background="#646464" DockPanel.Dock="Top" Margin="0" />
+        </DockPanel>
+        <Grid Grid.Row="1" Background="#FF1A1A1D">
+            <Grid.InputBindings>
+                <KeyBinding Key="N" Modifiers="Ctrl" Command="{StaticResource AddNamespace}" />
+                <KeyBinding Key="S" Modifiers="Alt" Command="{StaticResource AddStruct}" />
+                <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource AddEnum}" />
+                <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource FocusPath}" />
+                <KeyBinding Key="G" Modifiers="Ctrl" Command="{StaticResource GoToPath}" />
+            </Grid.InputBindings>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer Margin="10">
+                <StackPanel Background="#FF5A5A6C">
+                    <ItemsControl x:Name="items" />
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Margin="10,0,10,5" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Text="PATH:" TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalContentAlignment="Center"
+                         Background="#FF212125"
+                         BorderBrush="#FF161616" Foreground="LightBlue" Height="19" Width="40" IsReadOnly="True"
+                         IsHitTestVisible="False" IsTabStop="False"
+                         FontFamily="Inconsolata" VerticalContentAlignment="Center" FontSize="12" />
+                <TextBox Grid.Column="1" x:Name="pathBox" TextWrapping="NoWrap" VerticalAlignment="Top"
+                         Background="#FF212125"
+                         BorderBrush="#FF161616" Foreground="White" Height="19" KeyUp="PathBox_OnKeyUp">
+                    <TextBox.Text>
+                        <Binding Path="PathCreator">
+                            <Binding.ValidationRules>
+                                <local:PathValidator />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Button Grid.Column="2" x:Name="clearBtn" Content="ⵝ" Width="19" Padding="1,0,1,1" Margin="0"
+                        Click="clearBtn_Click"
+                        FontFamily="Showcard Gothic" FontSize="10" Style="{DynamicResource CircleButton}"
+                        HorizontalAlignment="Right" Background="#FF2D2D30"
+                        BorderBrush="#FF434346" Foreground="White" />
+                <Grid.ToolTip>
+                    <ToolTip>Name or Path(*.*.*) for struct or namespace or enum creation</ToolTip>
+                </Grid.ToolTip>
+            </Grid>
+            <Grid Margin="10,0,10,10" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="addNBtn" Content="Namespace" Height="19"
+                        Click="AddNBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="LightBlue"
+                        Grid.Column="0" />
+                <Button x:Name="addSBtn" Content="Struct" Height="19"
+                        Click="AddSBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="White"
+                        Grid.Column="1" />
+                <Button x:Name="addEBtn" Content="Enum" Height="19"
+                        Click="AddEBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="White"
+                        Grid.Column="2" />
+            </Grid>
+            <Grid Margin="10,0,10,10" Grid.Row="3">
+                <TextBox x:Name="logger" TextWrapping="Wrap" AcceptsReturn="True" Height="100" 
+                         Background="#FF212125"
+                         BorderBrush="#FF161616" Foreground="White"
+                         FontSize="12" FontFamily="Inconsolate" IsReadOnly="True">
+                    <TextBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="_Clear" Click="LogClear_OnClick"></MenuItem>
+                        </ContextMenu>
+                    </TextBox.ContextMenu>
+                </TextBox>
+            </Grid>
+            <!--<Grid Margin="10,0,10,5" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Separator Grid.Column="0" />
+                <TextBlock Grid.Column="1" Margin="5,0,5,0"
+                           HorizontalAlignment="Center" FontStyle="Italic"
+                           Foreground="White">
+                    Serializator
+                </TextBlock>
+                <Separator Grid.Column="2" />
+            </Grid>
+            <StackPanel Margin="10,0,10,10" Grid.Row="4">
+                <Grid Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="OUTPUT:" TextWrapping="NoWrap" VerticalAlignment="Top"
+                             HorizontalContentAlignment="Center"
+                             Background="#FF212125"
+                             BorderBrush="#FF161616" Foreground="White" Height="19" Width="50" IsReadOnly="True"
+                             IsHitTestVisible="False" IsTabStop="False"
+                             FontFamily="Inconsolata" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="saveBox" TextWrapping="NoWrap" VerticalAlignment="Top"
+                             Background="#FF212125"
+                             BorderBrush="#FF161616" Foreground="White" Height="19" Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+            <Grid Margin="10,0,10,5" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Separator Grid.Column="0" />
+                <TextBlock Grid.Column="1" Margin="5,0,5,0"
+                           HorizontalAlignment="Center" FontStyle="Italic"
+                           Foreground="White">
+                    Compiler
+                </TextBlock>
+                <Separator Grid.Column="2" />
+            </Grid>
+            <StackPanel Margin="10,0,10,10" Grid.Row="6">
+                <Grid Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="FOLDER:" TextWrapping="NoWrap" VerticalAlignment="Top"
+                             HorizontalContentAlignment="Center"
+                             Background="#FF212125"
+                             BorderBrush="#FF161616" Foreground="White" Height="19" Width="50" IsReadOnly="True"
+                             IsHitTestVisible="False" IsTabStop="False"
+                             FontFamily="Inconsolata" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="compileBox" TextWrapping="NoWrap" VerticalAlignment="Top"
+                             Background="#FF212125"
+                             BorderBrush="#FF161616" Foreground="White" Height="19" Grid.Column="1" />
+                </Grid>
+                <Button x:Name="compileBtn" Content="Compile" Height="19"
+                        Click="CompileBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="#FF00FFF3" />
+            </StackPanel>-->
+        </Grid>
+    </Grid>
+</Window>

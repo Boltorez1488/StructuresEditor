@@ -1,0 +1,58 @@
+﻿<Window x:Class="StructuresEditor.StructWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StructuresEditor"
+        mc:Ignorable="d"
+        Title="Struct Window" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" 
+        FontFamily="Roboto Medium" FontSize="14" MinWidth="800" MinHeight="450" 
+        Loaded="Window_Loaded" Closed="StructWindow_OnClosed">
+    <Window.Resources>
+        <RoutedUICommand x:Key="AddVar" Text="Add Var" />
+        <RoutedUICommand x:Key="AddPtr" Text="Add Ptr" />
+        <RoutedUICommand x:Key="AddEnum" Text="Add Enum" />
+        <RoutedUICommand x:Key="AddStruct" Text="Add Struct" />
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource AddVar}" Executed="VarAdder" />
+        <CommandBinding Command="{StaticResource AddPtr}" Executed="PtrAdder" />
+        <CommandBinding Command="{StaticResource AddEnum}" Executed="EnumAdder" />
+        <CommandBinding Command="{StaticResource AddStruct}" Executed="StructAdder" />
+    </Window.CommandBindings>
+    <Grid Background="#FF1A1A1D">
+        <Grid.InputBindings>
+            <KeyBinding Key="F" Modifiers="Ctrl" Command="{StaticResource AddVar}" />
+            <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource AddPtr}" />
+            <KeyBinding Key="E" Modifiers="Ctrl" Command="{StaticResource AddEnum}" />
+            <KeyBinding Key="S" Modifiers="Alt" Command="{StaticResource AddStruct}" />
+        </Grid.InputBindings>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer Margin="10">
+            <StackPanel Background="#FF222227">
+                <ItemsControl x:Name="items"/>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Margin="10,0,10,10" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addVBtn" Content="Variable" Height="19" 
+                    Click="AddVBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="#569CD6" Grid.Column="0"/>
+            <Button x:Name="addPBtn" Content="Pointer" Height="19" 
+                    Click="AddPBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="#4EC9B0" Grid.Column="1"/>
+            <Button x:Name="addSBtn" Content="Struct" Height="19" 
+                    Click="AddSBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="#4EC9B0" Grid.Column="2"/>
+            <Button x:Name="addEBtn" Content="Enum" Height="19" 
+                    Click="AddEBtn_OnClick" Style="{DynamicResource ButtonStandart}" Foreground="#B8D7A3" Grid.Column="3"/>
+        </Grid>
+    </Grid>
+</Window>

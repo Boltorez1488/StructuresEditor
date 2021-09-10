@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pattern>
+  <Window>
+    <Top>187</Top>
+    <Left>368</Left>
+    <Width>1550</Width>
+    <Height>838</Height>
+    <State>Maximized</State>
+  </Window>
+  <AdditonalFile></AdditonalFile>
+  <EmptyFile>empty.h</EmptyFile>
+  <CompilerOutName>all.h</CompilerOutName>
+  <CompilerFolder>structs</CompilerFolder>
+  <SerializatorPath>serialized.xml</SerializatorPath>
+  <GlobalNamespace></GlobalNamespace>
+  <PrintOffsets>false</PrintOffsets>
+  <Is64Bit>false</Is64Bit>
+</Pattern>

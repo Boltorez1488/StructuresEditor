@@ -1,0 +1,69 @@
+﻿<Window x:Class="StructuresEditor.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StructuresEditor"
+        mc:Ignorable="d"
+        Title="About" Height="516" Width="302" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Grid Background="#FF1A1A1D">
+        <Border Margin="10,10,10,10" BorderThickness="1" CornerRadius="10" BorderBrush="#666666">
+            <TextBlock Foreground="White" Padding="10" FontFamily="Inconsolate" FontSize="14">
+                <Bold>[Main Hotkeys]:</Bold>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+N - Create Namespace</Run>
+                <LineBreak></LineBreak>
+                <Run>Alt+S - Create Struct</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+E - Create Enum</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+T - Focus Path In Main Window</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+G - Go To Path In Main Window</Run>
+
+                <LineBreak></LineBreak>
+                <LineBreak></LineBreak>
+
+                <Bold>[Namespace Hotkeys]:</Bold>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+D - Delete Current</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+A - Focus Name</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+N - Create Namespace</Run>
+                <LineBreak></LineBreak>
+                <Run>Alt+S - Create Struct</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+E - Create Enum</Run>
+
+                <LineBreak></LineBreak>
+                <LineBreak></LineBreak>
+
+                <Bold>[Struct Hotkeys]:</Bold>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+D - Delete Current</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+A - Focus Name</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+F -Add Variable</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+P - Add Pointer</Run>
+                <LineBreak></LineBreak>
+                <Run>Alt+S - Add Struct</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+E - Add Enum</Run>
+                
+                <LineBreak></LineBreak>
+                <LineBreak></LineBreak>
+
+                <Bold>[Enum Hotkeys]:</Bold>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+D - Delete Current</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+A - Focus Name</Run>
+                <LineBreak></LineBreak>
+                <Run>Ctrl+F -Add Field</Run>
+            </TextBlock>
+        </Border>
+    </Grid>
+</Window>

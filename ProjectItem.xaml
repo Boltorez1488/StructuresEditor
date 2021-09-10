@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="StructuresEditor.ProjectItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StructuresEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14" FontFamily="Roboto Medium">
+    <UserControl.Resources>
+        <Storyboard x:Key="OnMouseEnter">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+                <EasingColorKeyFrame KeyTime="0" Value="#676767"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseLeave">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+                <EasingColorKeyFrame KeyTime="0" Value="#FF1A1A1D"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="grid">
+            <BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="grid">
+            <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid Background="#FF1A1A1D" Cursor="Hand" x:Name="grid" MouseDown="Grid_OnMouseDown">
+        <Border BorderThickness="0,0,0,1" BorderBrush="#3F3F46">
+            <DockPanel Margin="10">
+                <TextBlock x:Name="fname" DockPanel.Dock="Top" Foreground="White" FontWeight="Bold">Project Name</TextBlock>
+                <Separator DockPanel.Dock="Top"/>
+                <TextBlock x:Name="path" DockPanel.Dock="Bottom" Foreground="#FFA8A8A8" FontSize="12">Project Path</TextBlock>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

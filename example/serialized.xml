@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StructureEditor>
+  <Namespace Name="GM" IsExpand="true">
+    <Struct Name="ItemResource" IsExpand="true">
+      <Struct Offset="0" Size="4" ArraySize="1" Name="VirtualTable" Var="*vt" IsExpand="true">
+        <Var Offset="0" Size="4" ArraySize="1">int(__thiscall*getSkin)(ItemResource*)</Var>
+        <Var Offset="4" Size="4" ArraySize="1">void(__thiscall*drop)(ItemResource*)</Var>
+      </Struct>
+      <Var Offset="4" Size="4" ArraySize="1">int itemId</Var>
+      <Var Offset="8" Size="8" ArraySize="1">uint64 creatorId</Var>
+      <Ptr Offset="16" Size="4" ArraySize="1" Path="GM.ItemSkin">*itemSkin</Ptr>
+      <Ptr Offset="20" Size="1032" ArraySize="1" Path="UI.SlotExtender">slotExtender</Ptr>
+    </Struct>
+    <Struct Name="ItemSkin" IsExpand="true">
+      <Var Offset="0" Size="4" ArraySize="1">int skinId</Var>
+      <Var Offset="4" Size="4" ArraySize="1">int textureFormat</Var>
+      <Enum Offset="8" Size="4" ArraySize="1" Name="Slot" Var="slot" IsExpand="true">
+        <Field Name="Armor">0</Field>
+        <Field Name="Head">1</Field>
+        <Field Name="Weapon">2</Field>
+        <Field Name="Boots">3</Field>
+      </Enum>
+    </Struct>
+  </Namespace>
+  <Namespace Name="Test" IsExpand="true">
+    <Struct Name="Struct" IsExpand="true">
+      <Ptr Offset="0" Size="1052" ArraySize="2" Path="GM.ItemResource">itemResource[0x2]</Ptr>
+    </Struct>
+  </Namespace>
+  <Namespace Name="UI" IsExpand="true">
+    <Struct Name="SlotExtender" IsExpand="true">
+      <Var Offset="0" Size="4" ArraySize="1">int number</Var>
+      <Var Offset="4" Size="4" ArraySize="1">int replacer</Var>
+      <Var Offset="8" Size="4" ArraySize="256">int data[0x100]</Var>
+    </Struct>
+  </Namespace>
+</StructureEditor>
