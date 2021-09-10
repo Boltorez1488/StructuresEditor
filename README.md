@@ -25,6 +25,7 @@
 - Автоматический расчёт следующего оффсета во время создания нового поля
 - Поддержка массивов
 - Поддержка глобального Namespace
+- Автоматическая сортировка по имени A-z
 
 ## Помощь
 ```
@@ -98,6 +99,7 @@ Features:
 - Automatic calculation of the next offset when creating a new field
 - Array support
 - Support global Namespace
+- Automatic sorting by name A-z
 
 ## Help
 ```
