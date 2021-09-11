@@ -3,7 +3,7 @@
 # Редактор структур :ru:
 Предназначен для генерации дерева структур для C++. Используется в основном в связке:
 - Личная сборка Cheat Engine
-- [Сканер шаблонов](https://github.com/Boltorez1488/PatternsScanner)
+- [Сканер cигнатур](https://github.com/Boltorez1488/PatternsScanner)
 - IDA PRO
 
 *У всего функционала была нужда в создании, ничего лишнего не было создано. Всё, что здесь есть, использовалось реверсерами. Возможно некоторые вещи требуют доработки и модификации. Не поддерживается отмена операций (Ctrl+Z).*
@@ -77,7 +77,7 @@
 # Structure editor :us:
 Designed to generate a tree of structures for C++. Used mainly in conjunction:
 - Private build Cheat Engine
-- [Patterns Scanner](https://github.com/Boltorez1488/PatternsScanner)
+- [Signatures Scanner](https://github.com/Boltorez1488/PatternsScanner)
 - IDA PRO
 
 *All the functionality needed to be created, nothing superfluous was created. Everything that is here was used by reversers. Some things may need some work and modification. Undoing operations is not supported (Ctrl+Z).*
